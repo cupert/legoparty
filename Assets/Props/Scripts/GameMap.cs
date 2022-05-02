@@ -258,6 +258,8 @@ public class GameMap : MonoBehaviour
                     forward = false;
                 }
             }
+            bool isEventField = Fields[Position].GetComponent<Field>().isEventField;
+            Debug.Log("Field " + Position + ": is event field: " + isEventField);
             Player.GetComponent<PlayerInfo>().SetPosition(Position);
             DirectionSelected = false;
         }
