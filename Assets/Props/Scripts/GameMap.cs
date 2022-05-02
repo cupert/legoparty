@@ -12,10 +12,16 @@ public class GameMap : MonoBehaviour
     public GameObject[] Fields = new GameObject[Config.numberofFields];
     public GameObject[] Players = new GameObject[4];
     public int Position;
-    public int isPlaying;
+    public int isPlaying = -1;
     public bool PlayerCurrentlyMoving = false;
+    public bool DiceAlreadyRolled = false;
     public throw_dice_2 Dice;
     private bool AllowMovement;
+    public bool forward = false;
+    public bool left = false;
+    public bool right = false;
+    public bool DirectionSelected = false;
+    public bool RolledOnce= false;
 
     void Start()
     {
@@ -39,50 +45,74 @@ public class GameMap : MonoBehaviour
             }
             Debug.Log(AllowMovement);
         }
-        if (AllowMovement)
+        if(isPlaying == -1)
         {
-            //if (Input.GetKeyDown("1"))
-            //{
-            isPlaying = 0;
-            //}
-            //else if (Input.GetKeyDown("2"))
-            //{
-            //    isPlaying = 1;
-            //}
-            //else if (Input.GetKeyDown("3"))
-            //{
-            //    isPlaying = 2;
-            //}
-            //else if (Input.GetKeyDown("4"))
-            //{
-            //    isPlaying = 3;
-            //}
-
-            //if (isPlaying == 0)
-            //{
-            //movePlayer(Players[0]);
-            StartCoroutine(movePlayer(Players[0]));
-            //}
-            //else if (isPlaying == 1)
-            //{
-            //    movePlayer(Players[1]/*, random.Next(1, 6)*/);
-            //}
-            //else if (isPlaying == 2)
-            //{
-            //    movePlayer(Players[2]/*, random.Next(1, 6)*/);
-            //}
-            //else if (isPlaying == 3)
-            //{
-            //    movePlayer(Players[3]/*, random.Next(1, 6)*/);
-            //}
-            AllowMovement = false;
-        }
-        if (PlayerCurrentlyMoving)
-        {
-            if (Input.GetKeyDown("r"))
+            if (Input.GetKeyDown("1"))
             {
+                isPlaying = 0;
+            }
+            else if (Input.GetKeyDown("2"))
+            {
+                isPlaying = 1;
+            }
+            else if (Input.GetKeyDown("3"))
+            {
+                isPlaying = 2;
+            }
+            else if (Input.GetKeyDown("4"))
+            {
+                isPlaying = 3;
+            }
+        }
+        if (AllowMovement && isPlaying != -1)
+        {
+            if (isPlaying == 0)
+            {
+                StartCoroutine(movePlayer(Players[0]));
+                AllowMovement = false;
+            }
+            else if (isPlaying == 1)
+            {
+                StartCoroutine(movePlayer(Players[1]));
+                AllowMovement = false;
+            }
+            else if (isPlaying == 2)
+            {
+                StartCoroutine(movePlayer(Players[2]));
+                AllowMovement = false;
+            }
+            else if (isPlaying == 3)
+            {
+                StartCoroutine(movePlayer(Players[3]));
+                AllowMovement = false;
+            } 
+        }
+        if (PlayerCurrentlyMoving && isPlaying != -1)
+        {
+            if (Input.GetKeyDown("r") && !DiceAlreadyRolled)
+            {
+                if (RolledOnce) 
+                {
+                    Dice.RollAgain();
+                }
                 Dice.RollDice();
-                PlayerCurrentlyMoving = false;
+                RolledOnce = true;
+                DiceAlreadyRolled = true;
+            }
+            if (Input.GetKeyDown("w"))
+            {
+                forward = true;
+                DirectionSelected = true;
+            }
+            else if (Input.GetKeyDown("a"))
+            {
+                left = true;
+                DirectionSelected = true;
+            }
+            else if (Input.GetKeyDown("d"))
+            {
+                right = true;
+                DirectionSelected = true;
             }
         }
     }
@@ -98,138 +128,142 @@ public class GameMap : MonoBehaviour
         int DiceValue = Dice.diceValue;
         Debug.Log(DiceValue);
 
-        /////////////////////////////
-        /////////////////////////////
-        // auslagern in update //////
-        /////////////////////////////
-        /////////////////////////////
+        for (int NumberOfMoves = 0; NumberOfMoves < DiceValue; NumberOfMoves++)
+        {
+            yield return new WaitUntil(() => DirectionSelected == true);
+            if (Position == 2)
+            {
+                Debug.Log("Gib A für links oder W für grad aus ein");
+                if (left)
+                {
+                    Position = 32;
+                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                    left = false;
+                }
+                if (forward)
+                {
+                    Position++;
+                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                    forward = false;
+                }
+            }
+            else if (Position == 33)
+            {
+                Debug.Log("Gib A für links oder d für rechts ein");
+                if (left)
+                {
+                    Position++;
+                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                    left = false;
+                }
+                if (right)
+                {
+                    Position = 40;
+                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                    right = false;
+                }
+            }
+            else if (Position == 47)
+            {
+                if (forward)
+                {
+                    Position = 19;
+                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                    forward = false;
+                }
+            }
+            else if (Position == 39)
+            {
+                if (forward)
+                {
+                    Position = 46;
+                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                    forward = false;
+                }
+            }
+            else if (Position == 10)
+            {
+                Debug.Log("Gib A für links oder W für grad aus ein");
+                if (left)
+                {
+                    Position = 48;
+                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                    left = false;
 
-        //for (int NumberOfMoves = 0; NumberOfMoves < DiceValue; NumberOfMoves++)
-        //{
-        //    if (Position == 2)
-        //    {
-        //        Debug.Log("Gib A für links oder W für grad aus ein");
-        //        if (Input.GetKeyDown("a"))
-        //        {
-        //            Position = 32;
-        //            Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-        //        }
-        //        if (Input.GetKeyDown("w"))
-        //        {
-        //            Position++;
-        //            Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-        //        }
-        //    }
-        //    else if (Position == 33)
-        //    {
-        //        Debug.Log("Gib A für links oder d für rechts ein");
-        //        if (Input.GetKeyDown("a"))
-        //        {
-        //            Position++;
-        //            Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-        //        }
-        //        if (Input.GetKeyDown("d"))
-        //        {
-        //            Position = 40;
-        //            Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-        //        }
-        //    }
-        //    else if (Position == 47)
-        //    {
-        //        if (Input.GetKeyDown("w"))
-        //        {
-        //            Position = 19;
-        //            Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-        //        }
-        //    }
-        //    else if (Position == 39)
-        //    {
-        //        if (Input.GetKeyDown("w"))
-        //        {
-        //            Position = 46;
-        //            Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-        //        }
-        //    }
-        //    else if (Position == 10)
-        //    {
-        //        Debug.Log("Gib A für links oder W für grad aus ein");
-        //        if (Input.GetKeyDown("a"))
-        //        {
-        //            Position = 48;
-        //            Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-
-        //        }
-        //        if (Input.GetKeyDown("w"))
-        //        {
-        //            Position++;
-        //            Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-        //        }
-        //    }
-        //    else if (Position == 50)
-        //    {
-        //        if (Input.GetKeyDown("w"))
-        //        {
-        //            Position = 43;
-        //            Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-        //        }
-        //    }
-        //    else if (Position == 12)
-        //    {
-        //        Debug.Log("Gib A für links oder W für grad aus ein");
-        //        if (Input.GetKeyDown("a"))
-        //        {
-        //            Position = 51;
-        //            Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-
-        //        }
-        //        if (Input.GetKeyDown("w"))
-        //        {
-        //            Position++;
-        //            Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-        //        }
-        //    }
-        //    else if (Position == 53)
-        //    {
-        //        if (Input.GetKeyDown("w"))
-        //        {
-        //            Position = 16;
-        //            Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-
-        //        }
-        //    }
-        //    else if (Position == 31)
-        //    {
-        //        if (Input.GetKeyDown("w"))
-        //        {
-        //            Position = 0;
-        //            Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-
-        //        }
-        //    }
-        //    else
-        //    {
-        //        Debug.Log("Else");
-        //        while (Input.GetMouseButton(0))
-        //        {
-        //            if (Input.GetKeyDown("w"))
-        //            {
-        //                Debug.Log("bitte funktioniere wieder");
-
-        //                if (Position < Config.numberofFields - 1)
-        //                {
-        //                    Position++;
-        //                }
-        //                else
-        //                {
-        //                    Position = 0;
-        //                }
-        //                //Debug.Log(count);
-        //                Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-        //            }
-        //        }
-        //    }
-        //    Player.GetComponent<PlayerInfo>().SetPosition(Position);
-        //}
+                }
+                if (forward)
+                {
+                    Position++;
+                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                    forward = false;
+                }
+            }
+            else if (Position == 50)
+            {
+                if (forward)
+                {
+                    Position = 43;
+                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                    forward = false;
+                }
+            }
+            else if (Position == 12)
+            {
+                Debug.Log("Gib A für links oder W für grad aus ein");
+                if (left)
+                {
+                    Position = 51;
+                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                    left = false;
+                }
+                if (forward)
+                {
+                    Position++;
+                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                    forward = false;
+                }
+            }
+            else if (Position == 53)
+            {
+                if (forward)
+                {
+                    Position = 16;
+                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                    forward = false;
+                }
+            }
+            else if (Position == 31)
+            {
+                if (forward)
+                {
+                    Position = 0;
+                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                    forward = false;
+                }
+            }
+            else
+            {
+                if (forward)
+                {
+                    if (Position < Config.numberofFields - 1)
+                    {
+                        Position++;
+                        Debug.Log("test" + Position);
+                    }
+                    else
+                    {
+                        Position = 0;
+                    }
+                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                    forward = false;
+                }
+            }
+            Player.GetComponent<PlayerInfo>().SetPosition(Position);
+            DirectionSelected = false;
+        }
+        isPlaying = -1;
+        DiceAlreadyRolled = false;
+        Dice.Reset();
     }
     void InstanciateGame()
     {
@@ -242,36 +276,17 @@ public class GameMap : MonoBehaviour
 
         for (int i = 0; i < Config.numberofFields; i++)
         {
-            if (i > 31 && i < 40)
-            {
-                var CurrentField = $"Field ({i + 8})";
-                Fields[i] = GameObject.Find(CurrentField);
-                //Debug.Log(CurrentField);
-            }
-            else if (i > 39 && i < 48)
-            {
-                var CurrentField = $"Field ({i + 10})";
-                Fields[i] = GameObject.Find(CurrentField);
-                //Debug.Log(CurrentField);
-            }
-            else if (i > 47 && i < 51)
-            {
-                var CurrentField = $"Field ({i + 12})";
-                Fields[i] = GameObject.Find(CurrentField);
-                //Debug.Log(CurrentField);
-            }
-            else if (i > 50)
-            {
-                var CurrentField = $"Field ({i + 19})";
-                Fields[i] = GameObject.Find(CurrentField);
-                //Debug.Log(CurrentField);
-            }
-            else
-            {
-                var CurrentField = $"Field ({i})";
-                Fields[i] = GameObject.Find(CurrentField);
-                //Debug.Log(CurrentField);
-            }
+            var CurrentField = $"Field ({i})";
+            Fields[i] = GameObject.Find(CurrentField);
         }
+        isPlaying = -1;
+        PlayerCurrentlyMoving = false;
+        DiceAlreadyRolled = false;
+        AllowMovement = false;
+        forward = false;
+        left = false;
+        right = false;
+        DirectionSelected = false;
+        RolledOnce = false;
     }
 }

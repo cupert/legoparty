@@ -48,14 +48,15 @@ public class throw_dice_2 : MonoBehaviour
         }
     }
 
-    void Reset(){
+    public void Reset(){
         transform.position=initPosition;
+        finished = false;
         isThrown=false;
         isLanded=false;
         rb.useGravity=false;
     }
 
-    void RollAgain(){
+    public void RollAgain(){
         Reset();
 
         isThrown=true;
