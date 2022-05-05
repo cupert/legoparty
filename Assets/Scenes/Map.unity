@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 4285.1797, g: 4241.633, b: 5493.8125, a: 1}
+  m_IndirectSpecularColor: {r: 2106.1953, g: 1924.0879, b: 2029.5664, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -218,6 +218,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEventField: 0
+--- !u!1 &140021052 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7208569062472039708, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
+  m_PrefabInstance: {fileID: 1967617929}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &157207112
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,7 +240,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &157207113
 Light:
   m_ObjectHideFlags: 0
@@ -532,11 +537,6 @@ MonoBehaviour:
 --- !u!1 &426441600 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 986413511790017325, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
-  m_PrefabInstance: {fileID: 1967617929}
-  m_PrefabAsset: {fileID: 0}
---- !u!20 &429877860 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 8269162965572854132, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
   m_PrefabInstance: {fileID: 1967617929}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &432432459
@@ -1080,6 +1080,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEventField: 0
+--- !u!1 &1264720050 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6539366205850856105, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
+  m_PrefabInstance: {fileID: 1967617929}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1283193761 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2043690004498825119, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
+  m_PrefabInstance: {fileID: 1967617929}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4714daca57883f74f8a988b4e083579a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1310106897 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7053782819813211465, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
@@ -1242,11 +1258,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEventField: 0
---- !u!20 &1470282729 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 7018512562367524368, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
-  m_PrefabInstance: {fileID: 1967617929}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1472275542 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9116747522727734836, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
@@ -1337,6 +1348,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEventField: 1
+--- !u!1 &1616869645 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2512596640023774110, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
+  m_PrefabInstance: {fileID: 1967617929}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1634173757 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5152037228514791535, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
@@ -1360,11 +1376,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEventField: 0
---- !u!20 &1711841823 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 8916315586985494739, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
-  m_PrefabInstance: {fileID: 1967617929}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1743899479 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3347057395557637516, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
@@ -1419,7 +1430,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &1823688465
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1676,18 +1687,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Cameras:
-  - {fileID: 1711841823}
-  - {fileID: 1470282729}
-  - {fileID: 429877860}
+  - {fileID: 1616869645}
+  - {fileID: 140021052}
+  - {fileID: 1264720050}
   Figures:
   - {fileID: 7977261}
   - {fileID: 1634173757}
   - {fileID: 1834283555}
   - {fileID: 426441600}
   Nextcam: 0
+  _gameMapRef: {fileID: 1283193761}
   CamOffset: {x: 0, y: 0, z: 0}
   CamRotate: {x: 0, y: 0, z: 0}
-  Figurenextindex: 0
 --- !u!1001 &1967617929
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1899,6 +1910,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: e0045112cdd2e814ba5e11e270f30279, type: 2}
+    - target: {fileID: 4106801033966659070, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4180972873309259783, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
       propertyPath: m_Name
       value: Field (32)
