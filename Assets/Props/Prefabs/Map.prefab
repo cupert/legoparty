@@ -10940,7 +10940,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9170909725031656278}
   - component: {fileID: 8269162965572854132}
-  - component: {fileID: 1419055331774878517}
   - component: {fileID: 1119168631599128385}
   m_Layer: 0
   m_Name: Bird's Eye Camera
@@ -11006,14 +11005,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1419055331774878517
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6539366205850856105}
-  m_Enabled: 1
 --- !u!114 &1119168631599128385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12036,7 +12027,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8247893795905868523}
   - component: {fileID: 7018512562367524368}
-  - component: {fileID: 2450774151287353850}
   - component: {fileID: 7097295430321637722}
   m_Layer: 0
   m_Name: Dice Camera
@@ -12102,14 +12092,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &2450774151287353850
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7208569062472039708}
-  m_Enabled: 1
 --- !u!114 &7097295430321637722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14001,6 +13983,14 @@ MonoBehaviour:
   - {fileID: 0}
   Position: 0
   isPlaying: 0
+  PlayerCurrentlyMoving: 0
+  DiceAlreadyRolled: 0
+  Dice: {fileID: 0}
+  forward: 0
+  left: 0
+  right: 0
+  DirectionSelected: 0
+  RolledOnce: 0
 --- !u!1 &7952760386679228771
 GameObject:
   m_ObjectHideFlags: 0
@@ -19729,14 +19719,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4810076730fd9a04995e0e374d8772f5, type: 3}
---- !u!4 &2052359873357169463 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3953228315062324157, guid: 4810076730fd9a04995e0e374d8772f5, type: 3}
-  m_PrefabInstance: {fileID: 3073638968042326154}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5152037228514791535 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7915204761450731749, guid: 4810076730fd9a04995e0e374d8772f5, type: 3}
+  m_PrefabInstance: {fileID: 3073638968042326154}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2052359873357169463 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3953228315062324157, guid: 4810076730fd9a04995e0e374d8772f5, type: 3}
   m_PrefabInstance: {fileID: 3073638968042326154}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3106576712777403044
@@ -26192,14 +26182,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4810076730fd9a04995e0e374d8772f5, type: 3}
---- !u!4 &4932011830198927202 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3953228315062324157, guid: 4810076730fd9a04995e0e374d8772f5, type: 3}
-  m_PrefabInstance: {fileID: 8263743121436292319}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2267213174472830010 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7915204761450731749, guid: 4810076730fd9a04995e0e374d8772f5, type: 3}
+  m_PrefabInstance: {fileID: 8263743121436292319}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4932011830198927202 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3953228315062324157, guid: 4810076730fd9a04995e0e374d8772f5, type: 3}
   m_PrefabInstance: {fileID: 8263743121436292319}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8272228056188020904

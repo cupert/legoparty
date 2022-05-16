@@ -21,7 +21,8 @@ public class GameMap : MonoBehaviour
     public bool left = false;
     public bool right = false;
     public bool DirectionSelected = false;
-    public bool RolledOnce= false;
+    public bool RolledOnce = false;
+    public bool positionAlreadySet = false;
 
     void Start()
     {
@@ -126,137 +127,149 @@ public class GameMap : MonoBehaviour
         yield return new WaitUntil(() => Dice.finished == true);
 
         int DiceValue = Dice.diceValue;
-        Debug.Log(DiceValue);
 
         for (int NumberOfMoves = 0; NumberOfMoves < DiceValue; NumberOfMoves++)
         {
-            yield return new WaitUntil(() => DirectionSelected == true);
-            if (Position == 2)
+            Debug.Log("Remaining moves: " + (DiceValue - NumberOfMoves));
+            foreach(GameObject field in Fields)
             {
-                Debug.Log("Gib A für links oder W für grad aus ein");
-                if (left)
+                if(field.gameObject.transform.position == Player.gameObject.transform.position)
                 {
-                    Position = 32;
-                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-                    left = false;
-                }
-                if (forward)
-                {
-                    Position++;
-                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-                    forward = false;
+                    Debug.Log("current Field: " + field.name);
                 }
             }
-            else if (Position == 33)
+ 
+            if(Position != 2 && Position != 10 && Position != 12 && Position != 33)
             {
-                Debug.Log("Gib A für links oder d für rechts ein");
-                if (left)
-                {
-                    Position++;
-                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-                    left = false;
-                }
-                if (right)
-                {
-                    Position = 40;
-                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-                    right = false;
-                }
-            }
-            else if (Position == 47)
-            {
-                if (forward)
-                {
-                    Position = 19;
-                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-                    forward = false;
-                }
-            }
-            else if (Position == 39)
-            {
-                if (forward)
-                {
-                    Position = 46;
-                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-                    forward = false;
-                }
-            }
-            else if (Position == 10)
-            {
-                Debug.Log("Gib A für links oder W für grad aus ein");
-                if (left)
-                {
-                    Position = 48;
-                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-                    left = false;
-
-                }
-                if (forward)
-                {
-                    Position++;
-                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-                    forward = false;
-                }
-            }
-            else if (Position == 50)
-            {
-                if (forward)
-                {
-                    Position = 43;
-                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-                    forward = false;
-                }
-            }
-            else if (Position == 12)
-            {
-                Debug.Log("Gib A für links oder W für grad aus ein");
-                if (left)
-                {
-                    Position = 51;
-                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-                    left = false;
-                }
-                if (forward)
-                {
-                    Position++;
-                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-                    forward = false;
-                }
-            }
-            else if (Position == 53)
-            {
-                if (forward)
-                {
-                    Position = 16;
-                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-                    forward = false;
-                }
-            }
-            else if (Position == 31)
-            {
-                if (forward)
-                {
-                    Position = 0;
-                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-                    forward = false;
-                }
+                forward = true;
             }
             else
             {
-                if (forward)
+                if (Position == 2 || Position == 10 || Position == 12)
+                {
+                    Debug.Log("Gib W für grad aus ein");
+                }
+                if (Position == 2 || Position == 10 || Position == 12 || Position == 33)
+                {
+                    Debug.Log("Gib A für links ein");
+                }
+                if (Position == 33)
+                {
+                    Debug.Log("Gib D für rechts ein");
+                }
+                yield return new WaitUntil(() => DirectionSelected == true);
+                if (Position == 2)
+                {
+                    if (left)
+                    {
+                        Position = 32;
+                        Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                        left = false;
+                    }
+                    if (forward)
+                    {
+                        Position++;
+                        Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                        forward = false;
+                    }
+                }
+                else if (Position == 33)
+                {
+                    if (left)
+                    {
+                        Position++;
+                        Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                        left = false;
+                    }
+                    if (right)
+                    {
+                        Position = 40;
+                        Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                        right = false;
+                    }
+                }
+                else if (Position == 10)
+                {
+                    if (left)
+                    {
+                        Position = 48;
+                        Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                        left = false;
+
+                    }
+                    if (forward)
+                    {
+                        Position++;
+                        Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                        forward = false;
+                    }
+                }
+                else if (Position == 12)
+                {
+                    if (left)
+                    {
+                        Position = 51;
+                        Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                        left = false;
+                    }
+                    if (forward)
+                    {
+                        Position++;
+                        Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                        forward = false;
+                    }
+                }
+                positionAlreadySet = true;
+            }
+ 
+            if (Position == 47)
+            {
+                Position = 19;
+                Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                forward = false;
+            }
+            else if (Position == 39)
+            {
+                Position = 46;
+                Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                forward = false;
+            }
+            
+            else if (Position == 50)
+            {
+                Position = 43;
+                Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                forward = false;
+            }
+            
+            else if (Position == 53)
+            {
+                Position = 16;
+                Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                forward = false;
+            }
+            else if (Position == 31)
+            {
+                Position = 0;
+                Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                forward = false;
+            }
+            else
+            {
+                if (!positionAlreadySet)
                 {
                     if (Position < Config.numberofFields - 1)
                     {
                         Position++;
-                        Debug.Log("test" + Position);
                     }
                     else
                     {
                         Position = 0;
                     }
-                    Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
-                    forward = false;
                 }
+                positionAlreadySet = false;
+                Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                forward = false;
             }
             Player.GetComponent<PlayerInfo>().SetPosition(Position);
             DirectionSelected = false;
@@ -288,5 +301,6 @@ public class GameMap : MonoBehaviour
         right = false;
         DirectionSelected = false;
         RolledOnce = false;
+        positionAlreadySet = false;
     }
 }
