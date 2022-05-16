@@ -10,18 +10,18 @@ using Object = System.Object;
 public class GameMap : MonoBehaviour
 {
     public GameObject[] Fields = new GameObject[Config.numberofFields];
-    public GameObject[] Players = new GameObject[4];
-    public int Position;
-    public int isPlaying = -1;
+    public GameObject[] Players = new GameObject[4]; 
+    public int Position; // current & new player position
+    public int isPlaying = -1; // indicates which player is currently playing, -1 for none
     public bool PlayerCurrentlyMoving = false;
-    public bool DiceAlreadyRolled = false;
-    public throw_dice_2 Dice;
-    private bool AllowMovement;
+    public bool DiceAlreadyRolled = false; // player has rolled the dice for their turn
+    public throw_dice_2 Dice; // dice connected to player movement 
+    private bool AllowMovement; // allows the player to move
     public bool forward = false;
     public bool left = false;
     public bool right = false;
-    public bool DirectionSelected = false;
-    public bool RolledOnce = false;
+    public bool DirectionSelected = false; // used when waiting on user input at crossroads
+    public bool RolledOnce = false; // dice has been rolled at least once in the game
     public bool positionAlreadySet = false;
 
     void Start()
@@ -31,9 +31,9 @@ public class GameMap : MonoBehaviour
     }
 
 
-
     void Update()
     {
+        // start player turn with 's'
         if (Input.GetKeyDown("s"))
         {
             if (AllowMovement)
@@ -46,25 +46,31 @@ public class GameMap : MonoBehaviour
             }
             Debug.Log(AllowMovement);
         }
+        // choose current player
         if(isPlaying == -1)
         {
+            // player 1 is selected (yellow)
             if (Input.GetKeyDown("1"))
             {
                 isPlaying = 0;
             }
+            // player 2 is selected (blue)
             else if (Input.GetKeyDown("2"))
             {
                 isPlaying = 1;
             }
+            // player 3 is selected (red)
             else if (Input.GetKeyDown("3"))
             {
                 isPlaying = 2;
             }
+            // player 4 is selected (white)
             else if (Input.GetKeyDown("4"))
             {
                 isPlaying = 3;
             }
         }
+        // turn has started and player has been selected
         if (AllowMovement && isPlaying != -1)
         {
             if (isPlaying == 0)
@@ -88,6 +94,8 @@ public class GameMap : MonoBehaviour
                 AllowMovement = false;
             } 
         }
+        
+        // roll dice with 'r' to move the player the rolled number of fields
         if (PlayerCurrentlyMoving && isPlaying != -1)
         {
             if (Input.GetKeyDown("r") && !DiceAlreadyRolled)
@@ -100,6 +108,8 @@ public class GameMap : MonoBehaviour
                 RolledOnce = true;
                 DiceAlreadyRolled = true;
             }
+
+            // select direction when at a crossroad
             if (Input.GetKeyDown("w"))
             {
                 forward = true;
@@ -118,16 +128,21 @@ public class GameMap : MonoBehaviour
         }
     }
 
+    // logic behind moving a player
     public IEnumerator movePlayer(GameObject Player)
     {
+        // get the selected player's current position
         Position = Player.GetComponent<PlayerInfo>().GetPosition();
         Debug.Log(Player);
+        Debug.Log(Position);
         PlayerCurrentlyMoving = true;
 
+        // wait until dice has finished rolling to get valid dice value
         yield return new WaitUntil(() => Dice.finished == true);
 
         int DiceValue = Dice.diceValue;
 
+        // loop through player moves according to dice value since player moves automatically
         for (int NumberOfMoves = 0; NumberOfMoves < DiceValue; NumberOfMoves++)
         {
             Debug.Log("Remaining moves: " + (DiceValue - NumberOfMoves));
@@ -135,29 +150,35 @@ public class GameMap : MonoBehaviour
             {
                 if(field.gameObject.transform.position == Player.gameObject.transform.position)
                 {
-                    Debug.Log("current Field: " + field.name);
+                    Debug.Log("Current Field: " + field.name);
                 }
             }
  
-            if(Position != 2 && Position != 10 && Position != 12 && Position != 33)
+            // player is at non-crossroad field
+            if(Position != 2 && Position != 10 
+                && Position != 12 && Position != 33)
             {
                 forward = true;
             }
+            // player is at a cross road
             else
             {
                 if (Position == 2 || Position == 10 || Position == 12)
                 {
-                    Debug.Log("Gib W für grad aus ein");
+                    Debug.Log("Press 'w' to go forward");
                 }
-                if (Position == 2 || Position == 10 || Position == 12 || Position == 33)
+                if (Position == 2 || Position == 10 
+                    || Position == 12 || Position == 33)
                 {
-                    Debug.Log("Gib A für links ein");
+                    Debug.Log("Press 'a' to go left");
                 }
                 if (Position == 33)
                 {
-                    Debug.Log("Gib D für rechts ein");
+                    Debug.Log("Press 'd' to go right");
                 }
                 yield return new WaitUntil(() => DirectionSelected == true);
+                
+                // move player away from crossroad according to directional input 
                 if (Position == 2)
                 {
                     if (left)
@@ -222,38 +243,48 @@ public class GameMap : MonoBehaviour
                 positionAlreadySet = true;
             }
  
+            // positions 47, 39, 50, 53 are at the end of a crossroad section and the player
+            // needs to get back to the "main" section
             if (Position == 47)
             {
                 Position = 19;
-                Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                Player.GetComponent<Transform>().position = Fields[Position].
+                GetComponent<Transform>().position;
                 forward = false;
             }
             else if (Position == 39)
             {
                 Position = 46;
-                Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                Player.GetComponent<Transform>().position = Fields[Position].
+                GetComponent<Transform>().position;
                 forward = false;
             }
             
             else if (Position == 50)
             {
                 Position = 43;
-                Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                Player.GetComponent<Transform>().position = Fields[Position].
+                GetComponent<Transform>().position;
                 forward = false;
             }
             
             else if (Position == 53)
             {
                 Position = 16;
-                Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                Player.GetComponent<Transform>().position = Fields[Position].
+                GetComponent<Transform>().position;
                 forward = false;
             }
+
+            // field 31 is before field 0 geographically on the map, not a crossroad
             else if (Position == 31)
             {
                 Position = 0;
-                Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                Player.GetComponent<Transform>().position = Fields[Position].
+                GetComponent<Transform>().position;
                 forward = false;
             }
+            // move player normally (position + 1)
             else
             {
                 if (!positionAlreadySet)
@@ -268,32 +299,44 @@ public class GameMap : MonoBehaviour
                     }
                 }
                 positionAlreadySet = false;
-                Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
+                Player.GetComponent<Transform>().position = Fields[Position].
+                GetComponent<Transform>().position;
                 forward = false;
             }
-            bool isEventField = Fields[Position].GetComponent<Field>().isEventField;
-            Debug.Log("Field " + Position + ": is event field: " + isEventField);
+            // bool isEventField = Fields[Position].GetComponent<Field>().isEventField;
+            // Debug.Log("Field " + Position + ": is event field: " + isEventField);
+
+            // move player to specified position geographically
             Player.GetComponent<PlayerInfo>().SetPosition(Position);
             DirectionSelected = false;
         }
+        // reset values after successful player turn
         isPlaying = -1;
         DiceAlreadyRolled = false;
         Dice.Reset();
     }
+
+    // instanciates dice, players, fields and values needed for the game
     void InstanciateGame()
     {
         Debug.Log("InsanciateGame");
+        // instanciate dice
         Dice = GameObject.Find("dice_with_colliders 1").GetComponent<throw_dice_2>();
+        // instanciate players 1-4
         Players[0] = GameObject.Find("Yellow");
         Players[1] = GameObject.Find("Blue");
         Players[2] = GameObject.Find("Red");
         Players[3] = GameObject.Find("White");
 
+        // instanciate map fields
         for (int i = 0; i < Config.numberofFields; i++)
         {
             var CurrentField = $"Field ({i})";
             Fields[i] = GameObject.Find(CurrentField);
         }
+
+        // instanciate bools reflecting that no player has played yet and is not allowed
+        // to move or roll the dice
         isPlaying = -1;
         PlayerCurrentlyMoving = false;
         DiceAlreadyRolled = false;
