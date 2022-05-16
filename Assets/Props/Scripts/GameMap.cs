@@ -271,6 +271,8 @@ public class GameMap : MonoBehaviour
                 Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
                 forward = false;
             }
+            bool isEventField = Fields[Position].GetComponent<Field>().isEventField;
+            Debug.Log("Field " + Position + ": is event field: " + isEventField);
             Player.GetComponent<PlayerInfo>().SetPosition(Position);
             DirectionSelected = false;
         }
