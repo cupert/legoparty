@@ -38,11 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-<<<<<<< HEAD
   m_IndirectSpecularColor: {r: 2106.623, g: 1927.3066, b: 2039.1992, a: 1}
-=======
-  m_IndirectSpecularColor: {r: 2106.706, g: 1936.8262, b: 2070.4102, a: 1}
->>>>>>> 249fb259685ba8cf88e32295c32567128aadd29e
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1992,19 +1988,8 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-<<<<<<< HEAD
   m_IsActive: 1
-=======
-  m_IsActive: 0
---- !u!81 &1823688465
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1823688464}
-  m_Enabled: 1
->>>>>>> 249fb259685ba8cf88e32295c32567128aadd29e
+
 --- !u!20 &1823688466
 Camera:
   m_ObjectHideFlags: 0
@@ -2749,13 +2734,8 @@ PrefabInstance:
       value: Field (15)
       objectReference: {fileID: 0}
     - target: {fileID: 8916315586985494739, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
-<<<<<<< HEAD
       propertyPath: m_Enabled
       value: 1
-=======
-      propertyPath: m_CullingMask.m_Bits
-      value: 791
->>>>>>> 249fb259685ba8cf88e32295c32567128aadd29e
       objectReference: {fileID: 0}
     - target: {fileID: 9036652890051448171, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
       propertyPath: m_Name
