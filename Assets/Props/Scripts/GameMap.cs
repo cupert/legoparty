@@ -46,6 +46,7 @@ public class GameMap : MonoBehaviour
             }
             Debug.Log(AllowMovement);
         }
+<<<<<<< Updated upstream
         // choose current player
         if(isPlaying == -1)
         {
@@ -71,6 +72,27 @@ public class GameMap : MonoBehaviour
             }
         }
         // turn has started and player has been selected
+=======
+        //if(isPlaying == -1)
+        //{
+        //    if (Input.GetKeyDown("1"))
+        //    {
+        //        isPlaying = 0;
+        //    }
+        //    else if (Input.GetKeyDown("2"))
+        //    {
+        //        isPlaying = 1;
+        //    }
+        //    else if (Input.GetKeyDown("3"))
+        //    {
+        //        isPlaying = 2;
+        //    }
+        //    else if (Input.GetKeyDown("4"))
+        //    {
+        //        isPlaying = 3;
+        //    }
+        //}
+>>>>>>> Stashed changes
         if (AllowMovement && isPlaying != -1)
         {
             if (isPlaying == 0)
@@ -310,8 +332,21 @@ public class GameMap : MonoBehaviour
             Player.GetComponent<PlayerInfo>().SetPosition(Position);
             DirectionSelected = false;
         }
+<<<<<<< Updated upstream
         // reset values after successful player turn
         isPlaying = -1;
+=======
+        //interact with field
+        if(isPlaying == 3)
+        {
+            //StartMiniGame()
+            isPlaying = 0;
+        }
+        else
+        {
+            isPlaying++;
+        }
+>>>>>>> Stashed changes
         DiceAlreadyRolled = false;
         Dice.Reset();
     }
@@ -334,10 +369,14 @@ public class GameMap : MonoBehaviour
             var CurrentField = $"Field ({i})";
             Fields[i] = GameObject.Find(CurrentField);
         }
+<<<<<<< Updated upstream
 
         // instanciate bools reflecting that no player has played yet and is not allowed
         // to move or roll the dice
         isPlaying = -1;
+=======
+        isPlaying = 0;
+>>>>>>> Stashed changes
         PlayerCurrentlyMoving = false;
         DiceAlreadyRolled = false;
         AllowMovement = false;
