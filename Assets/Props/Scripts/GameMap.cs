@@ -350,5 +350,168 @@ public class GameMap : MonoBehaviour
         DirectionSelected = false;
         RolledOnce = false;
         positionAlreadySet = false;
+        //DetermineTurnSequence();
     }
+
+    void DetermineTurnSequence()
+    {
+        //player one rolls dice
+        //add to array
+        //player two rolls dice
+        //if player two rolls same number -> roll again, elseif player two rolls less -> append, else -> prepend
+        //player three rolls dice
+        //if player three rolls same number as player one or player two -> roll again, ......
+
+    }
+
+    //IEnumerator DetermineTurnSequence()
+    //{
+    //    int[] playerDiceValues = new int[4];
+    //    int i = 0;
+    //    GameObject[] players = Players;
+    //    foreach (GameObject player in Players)
+    //    {
+    //        yield return new WaitUntil(() => Dice.finished == true);
+    //        playerDiceValues[i] = Dice.diceValue;
+    //        i++;
+    //    }
+    //    if(playerDiceValues[0] != playerDiceValues[1] &&
+    //        playerDiceValues[0] != playerDiceValues[2] &&
+    //        playerDiceValues[0] != playerDiceValues[3] &&
+    //        playerDiceValues[1] != playerDiceValues[2] &&
+    //        playerDiceValues[1] != playerDiceValues[3] &&
+    //        playerDiceValues[2] != playerDiceValues[3])
+    //    {
+    //        Players[0] = players[0];
+    //        if (playerDiceValues[0] < playerDiceValues[1])
+    //        {
+    //            Players[1] = Players[0];
+    //            Players[0] = players[1];
+    //        }
+    //        else if (playerDiceValues[0] > playerDiceValues[1])
+    //        {
+    //            Players[1] = players[1];
+    //        }
+    //        else
+    //        {
+    //            Debug.Log("Error");
+    //        }
+    //        if(playerDiceValues[0] < playerDiceValues[2] && playerDiceValues[1] < playerDiceValues[2])
+    //        {
+    //            Players[2] = Players[1];
+    //            Players[1] = Players[0];
+    //            Players[0] = players[2];
+    //        }
+    //        else if (playerDiceValues[0] > playerDiceValues[2] && playerDiceValues[1] > playerDiceValues[2])
+    //        {
+    //            Players[2] = players[2];
+    //        }
+    //        else if (playerDiceValues[0] > playerDiceValues[2] && playerDiceValues[1] < playerDiceValues[2])
+    //        {
+    //            Players[2] = Players[1];
+    //            Players[1] = players[2];
+    //        }
+    //        else
+    //        {
+    //            Debug.Log("Error");
+    //        }
+    //        if (playerDiceValues[0] < playerDiceValues[3] && playerDiceValues[1] < playerDiceValues[3] && playerDiceValues[2] < playerDiceValues[3])
+    //        {
+    //            Players[3] = Players[2];
+    //            Players[2] = Players[1];
+    //            Players[1] = Players[0];
+    //            Players[0] = players[3];
+    //        }
+    //        else if (playerDiceValues[0] > playerDiceValues[3] && playerDiceValues[1] > playerDiceValues[3] && playerDiceValues[2] > playerDiceValues[3])
+    //        {
+    //            Players[3] = players[3];
+    //        }
+    //        else if (playerDiceValues[0] > playerDiceValues[3] && playerDiceValues[1] < playerDiceValues[3])
+    //        {
+    //            Players[3] = Players[2];
+    //            Players[2] = Players[1];
+    //            Players[1] = players[3];
+    //        }
+    //        else if (playerDiceValues[1] > playerDiceValues[3] && playerDiceValues[2] < playerDiceValues[3])
+    //        {
+    //            Players[3] = Players[2];
+    //            Players[2] = players[3];
+    //        }
+    //        else
+    //        {
+    //            Debug.Log("Error");
+    //        }
+    //    }
+    //    else
+    //    {
+    //        //zwei oder mehr haben das selbe gewürfelt
+    //        if(playerDiceValues[0] == playerDiceValues[1] && playerDiceValues[0] == playerDiceValues[2] && playerDiceValues[0] == playerDiceValues[3])
+    //        {
+    //            DetermineTurnSequence();
+    //        }
+    //        else if(playerDiceValues[0] == playerDiceValues[1])
+    //        {
+    //            for (int k = 0; k < 2; k++)
+    //            {
+    //                yield return new WaitUntil(() => Dice.finished == true);
+    //                playerDiceValues[k] = Dice.diceValue;
+    //            }
+    //        }
+    //        else if (playerDiceValues[0] == playerDiceValues[2])
+    //        {
+    //            for (int k = 0; k < 3; k++)
+    //            {
+    //                yield return new WaitUntil(() => Dice.finished == true);
+    //                playerDiceValues[k] = Dice.diceValue;
+    //                k++;
+    //            }
+    //        }
+    //        else if (playerDiceValues[0] == playerDiceValues[3])
+    //        {
+    //            for (int k = 0; k < 4; k++)
+    //            {
+    //                yield return new WaitUntil(() => Dice.finished == true);
+    //                playerDiceValues[k] = Dice.diceValue;
+    //                k++;
+    //                k++;
+    //            }
+    //        }
+    //        else if (playerDiceValues[1] == playerDiceValues[2])
+    //        {
+    //            for (int k = 1; k < 3; k++)
+    //            {
+    //                yield return new WaitUntil(() => Dice.finished == true);
+    //                playerDiceValues[k] = Dice.diceValue;
+    //            }
+    //        }
+    //        else if (playerDiceValues[1] == playerDiceValues[3])
+    //        {
+
+    //        }
+    //        else if (playerDiceValues[2] == playerDiceValues[3])
+    //        {
+
+    //        }
+    //        else if (playerDiceValues[0] == playerDiceValues[1] && playerDiceValues[0] == playerDiceValues[2])
+    //        {
+
+    //        }
+    //        else if (playerDiceValues[0] == playerDiceValues[1] && playerDiceValues[0] == playerDiceValues[3])
+    //        {
+
+    //        }
+    //        else if (playerDiceValues[0] == playerDiceValues[2] && playerDiceValues[0] == playerDiceValues[3])
+    //        {
+
+    //        }
+    //        else if (playerDiceValues[1] == playerDiceValues[2] && playerDiceValues[1] == playerDiceValues[3])
+    //        {
+
+    //        }
+    //        else
+    //        {
+    //            Debug.Log("Error");
+    //        }
+    //    }
+    //}
 }
