@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Field : MonoBehaviour
+public enum FieldTypeEnum
 {
-    public bool isEventField;
+    BaseField,
+    CoinField,
+    DangerField,
 }

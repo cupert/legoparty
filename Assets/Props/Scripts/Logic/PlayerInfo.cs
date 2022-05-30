@@ -9,30 +9,21 @@ public class PlayerInfo : MonoBehaviour
     
     
     //public GameObject Field;    
-    private int position;
-    private int coins;
-    private int trophies;
+    public int position { get; set; }
+    public int coins { get; set; }
+    public int trophies { get; set; }
 
     void Start()
     {
         position = -1;
+        coins = 0;
+        trophies = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-       
 
-    }
-
-    public void SetPosition(int Position)
-    {
-        position = Position;
-    }
-
-    public int GetPosition()
-    {
-        return position;
     }
 
 }

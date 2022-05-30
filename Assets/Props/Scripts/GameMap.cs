@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Object = System.Object;
@@ -10,6 +11,7 @@ using Random = UnityEngine.Random;
 public class GameMap : MonoBehaviour
 {
     public GameObject[] Fields = new GameObject[Config.numberofFields];
+    //public GameObject[] BaseFields = new GameObject[Config.numberofBaseFields];
     public GameObject[] Players = new GameObject[4]; 
     public int Position; // current & new player position
     public int isPlaying = -1; // indicates which player is currently playing, -1 for none
@@ -111,7 +113,7 @@ public class GameMap : MonoBehaviour
     {
         Debug.Log("Coroutine movePlayer started");
         // get the selected player's current position
-        Position = Player.GetComponent<PlayerInfo>().GetPosition();
+        Position = Player.GetComponent<PlayerInfo>().position;
         Debug.Log(Player);
         Debug.Log(Position);
         PlayerCurrentlyMoving = true;
@@ -285,11 +287,19 @@ public class GameMap : MonoBehaviour
                 yield return new WaitForFixedUpdate();
             }
 
-            Player.GetComponent<PlayerInfo>().SetPosition(Position);
+            Player.GetComponent<PlayerInfo>().position = Position;
             DirectionSelected = false;
         }
         //interact with field
-        if(isPlaying == 3)
+        Fields[Position].GetComponent<IField>().InteractWithPlayer(Player.GetComponent<PlayerInfo>());
+        //if (Fields[Position].GetComponent<BaseField>().IsTrophyField)
+        //{
+        //    Fields[Position].GetComponent<BaseField>().IsTrophyField = false;
+        //    PlaceTrophy();
+        //}
+        Debug.Log(Player + " coins " + Player.GetComponent<PlayerInfo>().coins);
+
+        if (isPlaying == 3)
         {
             //StartMiniGame()
             isPlaying = 0;
@@ -324,6 +334,16 @@ public class GameMap : MonoBehaviour
             var CurrentField = $"Field ({i})";
             Fields[i] = GameObject.Find(CurrentField);
         }
+        //BaseFields = (GameObject[])Fields.Where(e => e.GetComponent<IField>().FieldType == FieldTypeEnum.BaseField);
+        //int k = 0;
+        //for(int i = 0; i < Fields.Length; i++)
+        //{
+        //    if(Fields[i].GetComponent<IField>().FieldType == FieldTypeEnum.BaseField)
+        //    {
+        //        BaseFields[k] = Fields[i];
+        //        k++;
+        //    }
+        //}
 
         // instanciate bools reflecting that no player has played yet and is not allowed
         // to move or roll the dice
@@ -340,6 +360,7 @@ public class GameMap : MonoBehaviour
         isShuffled = false;
         isJunction = false;
         ShufflePlayerArray();
+        //PlaceTrophy();
     }
 
     void ShufflePlayerArray()
@@ -354,4 +375,11 @@ public class GameMap : MonoBehaviour
         }
         isShuffled = true;
     }
+
+    //void PlaceTrophy()
+    //{
+    //    int rnd = Random.Range(0, BaseFields.Length);
+    //    BaseFields[rnd].GetComponent<BaseField>().IsTrophyField = true;
+    //    Debug.Log("Trophy " + rnd);
+    //}
 }
