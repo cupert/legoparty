@@ -74,5 +74,31 @@ public class Camscript : MonoBehaviour
                 Cameras[0].transform.eulerAngles = new Vector3(15, -90, 0);
             }
         }
+
+        if(_gameMapRef.PlayerCurrentlyMoving == true && _gameMapRef.Dice.finished)
+        {
+            DeactivateCameras();
+            Cameras[0].SetActive(true);
+        }
+        if(_gameMapRef.DiceAlreadyRolled == false)
+        {
+            Cameras[1].SetActive(true);
+        }
+        if(_gameMapRef.DirectionSelected == false && _gameMapRef.isJunction)
+        {
+            Cameras[2].SetActive(true);
+        }
+        if(_gameMapRef.isShuffled == true)
+        {
+            Figures = _gameMapRef.Players;
+            _gameMapRef.isShuffled = false;
+        }
+    }
+    void DeactivateCameras()
+    {
+        foreach (var cam in Cameras)
+        {
+            cam.SetActive(false);
+        }
     }
 }

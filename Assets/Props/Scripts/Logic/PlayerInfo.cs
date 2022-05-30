@@ -10,6 +10,8 @@ public class PlayerInfo : MonoBehaviour
     
     //public GameObject Field;    
     private int position;
+    private int coins;
+    private int trophies;
 
     void Start()
     {
