@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1974.1709, g: 1694.7656, b: 1496.5508, a: 1}
+  m_IndirectSpecularColor: {r: 2107, g: 1928.6465, b: 2042.668, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -279,7 +279,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950906fa90213148bb883a6bb248ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrophyField: 0
 --- !u!1 &87726368 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4180972873309259783, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
@@ -314,7 +313,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950906fa90213148bb883a6bb248ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrophyField: 0
 --- !u!1 &140021052 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7208569062472039708, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
@@ -664,10 +662,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 353048589}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3950906fa90213148bb883a6bb248ccb, type: 3}
+  m_Script: {fileID: 11500000, guid: 4dc1995efebd54b4b8b30a659280f6a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrophyField: 0
 --- !u!1 &388729311 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4627649108425624926, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
@@ -685,7 +682,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950906fa90213148bb883a6bb248ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrophyField: 0
 --- !u!1 &399087275 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8539909023698211573, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
@@ -703,7 +699,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950906fa90213148bb883a6bb248ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrophyField: 0
 --- !u!1 &432432459
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,7 +781,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950906fa90213148bb883a6bb248ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrophyField: 0
 --- !u!1 &540355819 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 406307926412592441, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
@@ -821,7 +815,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950906fa90213148bb883a6bb248ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrophyField: 0
 --- !u!1 &682677815
 GameObject:
   m_ObjectHideFlags: 0
@@ -965,7 +958,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950906fa90213148bb883a6bb248ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrophyField: 0
 --- !u!1 &804150837 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3925097919275795909, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
@@ -1167,7 +1159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950906fa90213148bb883a6bb248ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrophyField: 0
 --- !u!1 &908103579 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 724435550612398829, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
@@ -1185,7 +1176,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950906fa90213148bb883a6bb248ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrophyField: 0
 --- !u!1 &938412760 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3344375604109651439, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
@@ -1203,7 +1193,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950906fa90213148bb883a6bb248ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrophyField: 0
 --- !u!1 &941411277 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3700756470494211004, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
@@ -1238,7 +1227,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950906fa90213148bb883a6bb248ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrophyField: 0
 --- !u!1001 &988166489
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1423,7 +1411,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950906fa90213148bb883a6bb248ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrophyField: 0
 --- !u!1 &1227313739 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1779632766202739483, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
@@ -1458,7 +1445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950906fa90213148bb883a6bb248ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrophyField: 0
 --- !u!1 &1264720050 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6539366205850856105, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
@@ -1492,7 +1478,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950906fa90213148bb883a6bb248ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrophyField: 0
 --- !u!1 &1317924216 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9067641532641756385, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
@@ -1527,7 +1512,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950906fa90213148bb883a6bb248ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrophyField: 0
 --- !u!1 &1333204478 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8598915658340594793, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
@@ -1596,7 +1580,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950906fa90213148bb883a6bb248ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrophyField: 0
 --- !u!1 &1396272504 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6122921709660701698, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
@@ -1614,7 +1597,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950906fa90213148bb883a6bb248ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrophyField: 0
 --- !u!1 &1436914668 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8399349731549635951, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
@@ -1632,7 +1614,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950906fa90213148bb883a6bb248ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrophyField: 0
 --- !u!1 &1472275542 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9116747522727734836, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
@@ -2225,6 +2206,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -135.7
       objectReference: {fileID: 0}
+    - target: {fileID: 500789181454076695, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: acf5d0d4840635f4d8412535719f5082, type: 2}
     - target: {fileID: 528748483627595927, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.69
@@ -3002,7 +2987,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950906fa90213148bb883a6bb248ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrophyField: 0
 --- !u!1 &2013410473
 GameObject:
   m_ObjectHideFlags: 1
@@ -3065,7 +3049,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950906fa90213148bb883a6bb248ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrophyField: 0
 --- !u!1 &2091416774 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2925797690664632100, guid: 7bee3e7c1f5a20541bbc1d4afa05b653, type: 3}
@@ -3083,7 +3066,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950906fa90213148bb883a6bb248ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrophyField: 0
 --- !u!1 &2110984338
 GameObject:
   m_ObjectHideFlags: 0

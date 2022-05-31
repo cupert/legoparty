@@ -263,8 +263,6 @@ public class GameMap : MonoBehaviour
                 positionAlreadySet = false;
                 forward = false;
             }
-            // bool isEventField = Fields[Position].GetComponent<Field>().isEventField;
-            // Debug.Log("Field " + Position + ": is event field: " + isEventField);
 
             // move player to specified position geographically
             int nextPosition = Position;    //prevent changes in position value during coroutine by using intended next position
@@ -288,19 +286,29 @@ public class GameMap : MonoBehaviour
 
             Player.GetComponent<PlayerInfo>().position = Position;
             DirectionSelected = false;
-        }
-        //interact with field
-        Fields[Position].GetComponent<IField>().InteractWithPlayer(Player.GetComponent<PlayerInfo>());
-        if(Fields[Position].GetComponent<IField>().FieldType == FieldTypeEnum.BaseField)
-        {
-            if (Fields[Position].GetComponent<BaseField>().IsTrophyField == true)
+            //interact with fields during the turn
+            if (Fields[Position].GetComponent<IField>().FieldType == FieldTypeEnum.BaseField)
             {
-                Fields[Position].GetComponent<BaseField>().IsTrophyField = false;
-                PlaceTrophy();
+                if (Fields[Position].GetComponent<BaseField>().IsTrophyField == true)
+                {
+                    Fields[Position].GetComponent<BaseField>().GiveTrophy(Player.GetComponent<PlayerInfo>());
+                    PlaceTrophy();
+                }
+            }
+            if (Fields[Position].GetComponent<IField>().FieldType == FieldTypeEnum.ItemShopField)
+            {
+                Fields[Position].GetComponent<ItemShopField>().InteractWithPlayer(Player.GetComponent<PlayerInfo>());
+                yield return new WaitUntil(() => Fields[Position].GetComponent<ItemShopField>().IsDoneShopping == true);
+                Fields[Position].GetComponent<ItemShopField>().IsDoneShopping = false;
             }
         }
-        Debug.Log(Player + " coins " + Player.GetComponent<PlayerInfo>().coins);
-        Debug.Log(Player + " trophies " + Player.GetComponent<PlayerInfo>().trophies);
+        //interact with fields at the end of the turn
+        if(Fields[Position].GetComponent<IField>().FieldType != FieldTypeEnum.ItemShopField)
+        {
+            Fields[Position].GetComponent<IField>().InteractWithPlayer(Player.GetComponent<PlayerInfo>());
+            Debug.Log(Player + " coins " + Player.GetComponent<PlayerInfo>().coins);
+            Debug.Log(Player + " trophies " + Player.GetComponent<PlayerInfo>().trophies);
+        }
 
         if (isPlaying == 3)
         {
@@ -383,6 +391,6 @@ public class GameMap : MonoBehaviour
     {
         int rnd = Random.Range(0, BaseFields.Length);
         BaseFields[rnd].GetComponent<BaseField>().IsTrophyField = true;
-        Debug.Log("Trophy " + rnd);
+        Debug.Log("Trophy " + BaseFields[rnd].name);
     }
 }

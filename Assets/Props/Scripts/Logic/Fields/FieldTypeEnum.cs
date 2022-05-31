@@ -7,4 +7,5 @@ public enum FieldTypeEnum
     BaseField,
     CoinField,
     DangerField,
+    ItemShopField
 }
