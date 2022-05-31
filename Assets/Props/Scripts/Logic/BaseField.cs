@@ -5,7 +5,7 @@ using UnityEngine;
 public class BaseField : MonoBehaviour, IField
 {
     public FieldTypeEnum FieldType { get; set; } = FieldTypeEnum.BaseField;
-    public bool IsTrophyField = false;
+    public bool IsTrophyField { get; set; } = false;
     public void InteractWithPlayer(PlayerInfo player)
     {
         if (IsTrophyField)
