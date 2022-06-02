@@ -325,6 +325,8 @@ public class GameMap : MonoBehaviour
         //allow movement at the end of the coroutine
         AllowMovement = true;
         PlayerCurrentlyMoving = false;
+
+        UIManager.UIManagerRef.IncreaseTurnCount();
     }
 
     // instanciates dice, players, fields and values needed for the game
