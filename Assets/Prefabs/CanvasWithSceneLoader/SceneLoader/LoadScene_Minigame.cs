@@ -6,11 +6,6 @@ using UnityEngine.SceneManagement;
 public class LoadScene_Minigame : MonoBehaviour
 {
     private int x=0;
-    public void LoadRandomScene(){
-        Debug.Log("Loading Random Scene");
-        int sceneNumber= Random.Range(1, SceneManager.sceneCountInBuildSettings);
-        SceneManager.LoadScene(sceneNumber);
-    }
 
     public void LoadMainScene(){
         Debug.Log("Loading Main Scene");
@@ -20,9 +15,17 @@ public class LoadScene_Minigame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        x+=1;
-        if(x>=300){
+        if(isMinigameOver()){
+            Debug.Log("Minigame is over");
             LoadMainScene();
         }
+    }
+
+    bool isMinigameOver(){
+        x+=1;
+        if(x>= 300){
+            return true;
+        }
+        return false;
     }
 }
