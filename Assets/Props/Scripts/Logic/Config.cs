@@ -14,4 +14,5 @@ public static class Config
     Total 54
      */
     public const int numberofFields = 54;
+    public const int numberofBaseFields = 22;
 }

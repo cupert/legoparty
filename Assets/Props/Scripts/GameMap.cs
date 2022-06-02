@@ -2,14 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Object = System.Object;
-
+using Random = UnityEngine.Random;
 
 public class GameMap : MonoBehaviour
 {
     public GameObject[] Fields = new GameObject[Config.numberofFields];
+    public GameObject[] BaseFields = new GameObject[Config.numberofBaseFields];
     public GameObject[] Players = new GameObject[4]; 
     public int Position; // current & new player position
     public int isPlaying = -1; // indicates which player is currently playing, -1 for none
@@ -23,6 +25,9 @@ public class GameMap : MonoBehaviour
     public bool DirectionSelected = false; // used when waiting on user input at crossroads
     public bool RolledOnce = false; // dice has been rolled at least once in the game
     public bool positionAlreadySet = false;
+    private float _movementTime = 1; //the time in seconds it takes for the figurine to move to each field
+    public bool isShuffled = false;
+    public bool isJunction = false;
 
     void Start()
     {
@@ -30,100 +35,74 @@ public class GameMap : MonoBehaviour
         InstanciateGame();
     }
 
-
     void Update()
-    {
-        // start player turn with 's'
-        if (Input.GetKeyDown("s"))
-        {
-            if (AllowMovement)
-            {
-                AllowMovement = false;
-            }
-            else
-            {
-                AllowMovement = true;
-            }
-            Debug.Log(AllowMovement);
-        }
-        // choose current player
-        if(isPlaying == -1)
-        {
-            // player 1 is selected (yellow)
-            if (Input.GetKeyDown("1"))
-            {
-                isPlaying = 0;
-            }
-            // player 2 is selected (blue)
-            else if (Input.GetKeyDown("2"))
-            {
-                isPlaying = 1;
-            }
-            // player 3 is selected (red)
-            else if (Input.GetKeyDown("3"))
-            {
-                isPlaying = 2;
-            }
-            // player 4 is selected (white)
-            else if (Input.GetKeyDown("4"))
-            {
-                isPlaying = 3;
-            }
-        }
-        // turn has started and player has been selected
+    {  
         if (AllowMovement && isPlaying != -1)
         {
-            if (isPlaying == 0)
+            if (isPlaying == 0 && DiceAlreadyRolled)
             {
                 StartCoroutine(movePlayer(Players[0]));
                 AllowMovement = false;
             }
-            else if (isPlaying == 1)
+            else if (isPlaying == 1 && DiceAlreadyRolled)
             {
                 StartCoroutine(movePlayer(Players[1]));
                 AllowMovement = false;
             }
-            else if (isPlaying == 2)
+            else if (isPlaying == 2 && DiceAlreadyRolled)
             {
                 StartCoroutine(movePlayer(Players[2]));
                 AllowMovement = false;
             }
-            else if (isPlaying == 3)
+            else if (isPlaying == 3 && DiceAlreadyRolled)
             {
                 StartCoroutine(movePlayer(Players[3]));
                 AllowMovement = false;
             } 
         }
-        
+
         // roll dice with 'r' to move the player the rolled number of fields
+        if (Input.GetKeyDown("r") && !DiceAlreadyRolled)
+        {
+            if (RolledOnce)
+            {
+                Dice.RollAgain();
+            }
+            Dice.RollDice();
+            RolledOnce = true;
+            DiceAlreadyRolled = true;
+        }
+        
         if (PlayerCurrentlyMoving && isPlaying != -1)
         {
-            if (Input.GetKeyDown("r") && !DiceAlreadyRolled)
-            {
-                if (RolledOnce) 
-                {
-                    Dice.RollAgain();
-                }
-                Dice.RollDice();
-                RolledOnce = true;
-                DiceAlreadyRolled = true;
-            }
-
             // select direction when at a crossroad
             if (Input.GetKeyDown("w"))
             {
-                forward = true;
-                DirectionSelected = true;
+                //only allow forward movement in the following cases
+                if (Position == 2 || Position == 10 || Position == 12)
+                {
+                    forward = true;
+                    DirectionSelected = true;
+                }
             }
             else if (Input.GetKeyDown("a"))
             {
-                left = true;
-                DirectionSelected = true;
+                //only allow movement to the left in the following cases
+                if (Position == 2 || Position == 10 || Position == 12 || Position == 33)
+                {
+                    left = true;
+                    DirectionSelected = true;
+                }
             }
             else if (Input.GetKeyDown("d"))
             {
-                right = true;
-                DirectionSelected = true;
+                //only allow movement to the right in the following cases
+                if (Position == 33)
+                {
+                    right = true;
+                    DirectionSelected = true;
+                }
+                
             }
         }
     }
@@ -131,8 +110,9 @@ public class GameMap : MonoBehaviour
     // logic behind moving a player
     public IEnumerator movePlayer(GameObject Player)
     {
+        Debug.Log("Coroutine movePlayer started");
         // get the selected player's current position
-        Position = Player.GetComponent<PlayerInfo>().GetPosition();
+        Position = Player.GetComponent<PlayerInfo>().position;
         Debug.Log(Player);
         Debug.Log(Position);
         PlayerCurrentlyMoving = true;
@@ -155,8 +135,7 @@ public class GameMap : MonoBehaviour
             }
  
             // player is at non-crossroad field
-            if(Position != 2 && Position != 10 
-                && Position != 12 && Position != 33)
+            if(Position != 2 && Position != 10 && Position != 12 && Position != 33)
             {
                 forward = true;
             }
@@ -167,8 +146,7 @@ public class GameMap : MonoBehaviour
                 {
                     Debug.Log("Press 'w' to go forward");
                 }
-                if (Position == 2 || Position == 10 
-                    || Position == 12 || Position == 33)
+                if (Position == 2 || Position == 10 || Position == 12 || Position == 33)
                 {
                     Debug.Log("Press 'a' to go left");
                 }
@@ -176,7 +154,9 @@ public class GameMap : MonoBehaviour
                 {
                     Debug.Log("Press 'd' to go right");
                 }
+                isJunction = true;
                 yield return new WaitUntil(() => DirectionSelected == true);
+                isJunction = false;
                 
                 // move player away from crossroad according to directional input 
                 if (Position == 2)
@@ -184,13 +164,11 @@ public class GameMap : MonoBehaviour
                     if (left)
                     {
                         Position = 32;
-                        Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
                         left = false;
                     }
                     if (forward)
                     {
                         Position++;
-                        Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
                         forward = false;
                     }
                 }
@@ -199,13 +177,11 @@ public class GameMap : MonoBehaviour
                     if (left)
                     {
                         Position++;
-                        Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
                         left = false;
                     }
                     if (right)
                     {
                         Position = 40;
-                        Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
                         right = false;
                     }
                 }
@@ -214,14 +190,12 @@ public class GameMap : MonoBehaviour
                     if (left)
                     {
                         Position = 48;
-                        Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
                         left = false;
 
                     }
                     if (forward)
                     {
                         Position++;
-                        Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
                         forward = false;
                     }
                 }
@@ -230,13 +204,11 @@ public class GameMap : MonoBehaviour
                     if (left)
                     {
                         Position = 51;
-                        Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
                         left = false;
                     }
                     if (forward)
                     {
                         Position++;
-                        Player.GetComponent<Transform>().position = Fields[Position].GetComponent<Transform>().position;
                         forward = false;
                     }
                 }
@@ -248,31 +220,23 @@ public class GameMap : MonoBehaviour
             if (Position == 47)
             {
                 Position = 19;
-                Player.GetComponent<Transform>().position = Fields[Position].
-                GetComponent<Transform>().position;
                 forward = false;
             }
             else if (Position == 39)
             {
                 Position = 46;
-                Player.GetComponent<Transform>().position = Fields[Position].
-                GetComponent<Transform>().position;
                 forward = false;
             }
             
             else if (Position == 50)
             {
                 Position = 43;
-                Player.GetComponent<Transform>().position = Fields[Position].
-                GetComponent<Transform>().position;
                 forward = false;
             }
             
             else if (Position == 53)
             {
                 Position = 16;
-                Player.GetComponent<Transform>().position = Fields[Position].
-                GetComponent<Transform>().position;
                 forward = false;
             }
 
@@ -280,8 +244,6 @@ public class GameMap : MonoBehaviour
             else if (Position == 31)
             {
                 Position = 0;
-                Player.GetComponent<Transform>().position = Fields[Position].
-                GetComponent<Transform>().position;
                 forward = false;
             }
             // move player normally (position + 1)
@@ -299,21 +261,70 @@ public class GameMap : MonoBehaviour
                     }
                 }
                 positionAlreadySet = false;
-                Player.GetComponent<Transform>().position = Fields[Position].
-                GetComponent<Transform>().position;
                 forward = false;
             }
-            // bool isEventField = Fields[Position].GetComponent<Field>().isEventField;
-            // Debug.Log("Field " + Position + ": is event field: " + isEventField);
 
             // move player to specified position geographically
-            Player.GetComponent<PlayerInfo>().SetPosition(Position);
+            int nextPosition = Position;    //prevent changes in position value during coroutine by using intended next position
+            float progression;              //how fas the animation advanced
+            Vector3 fieldOffset = Vector3.down * 2;
+            AnimationCurve curve = AnimationCurve.Constant(0, _movementTime, 3);
+            for (float passedTime = 0; passedTime <= _movementTime; passedTime += Time.fixedDeltaTime)
+            {
+                //progression ranges from 0 to 1 over the course of the animation
+                progression = passedTime / _movementTime;
+
+                //interpolate horizontal movement over time
+                Vector3 deltaPosition = Vector3.Lerp(Player.transform.position, Fields[nextPosition].transform.position + fieldOffset, passedTime);
+                //interpolate vertical movement over time
+                deltaPosition.y += curve.Evaluate(passedTime);
+
+                //apply positional value over time
+                Player.transform.position = deltaPosition;
+                yield return new WaitForFixedUpdate();
+            }
+
+            Player.GetComponent<PlayerInfo>().position = Position;
             DirectionSelected = false;
+            //interact with fields during the turn
+            if (Fields[Position].GetComponent<IField>().FieldType == FieldTypeEnum.BaseField)
+            {
+                if (Fields[Position].GetComponent<BaseField>().IsTrophyField == true)
+                {
+                    Fields[Position].GetComponent<BaseField>().GiveTrophy(Player.GetComponent<PlayerInfo>());
+                    PlaceTrophy();
+                }
+            }
+            if (Fields[Position].GetComponent<IField>().FieldType == FieldTypeEnum.ItemShopField)
+            {
+                Fields[Position].GetComponent<ItemShopField>().InteractWithPlayer(Player.GetComponent<PlayerInfo>());
+                yield return new WaitUntil(() => Fields[Position].GetComponent<ItemShopField>().IsDoneShopping == true);
+                Fields[Position].GetComponent<ItemShopField>().IsDoneShopping = false;
+            }
         }
-        // reset values after successful player turn
-        isPlaying = -1;
+        //interact with fields at the end of the turn
+        if(Fields[Position].GetComponent<IField>().FieldType != FieldTypeEnum.ItemShopField)
+        {
+            Fields[Position].GetComponent<IField>().InteractWithPlayer(Player.GetComponent<PlayerInfo>());
+            Debug.Log(Player + " coins " + Player.GetComponent<PlayerInfo>().coins);
+            Debug.Log(Player + " trophies " + Player.GetComponent<PlayerInfo>().trophies);
+        }
+
+        if (isPlaying == 3)
+        {
+            //StartMiniGame()
+            isPlaying = 0;
+        }
+        else
+        {
+            isPlaying++;
+        }
         DiceAlreadyRolled = false;
         Dice.Reset();
+
+        //allow movement at the end of the coroutine
+        AllowMovement = true;
+        PlayerCurrentlyMoving = false;
     }
 
     // instanciates dice, players, fields and values needed for the game
@@ -334,18 +345,52 @@ public class GameMap : MonoBehaviour
             var CurrentField = $"Field ({i})";
             Fields[i] = GameObject.Find(CurrentField);
         }
+        
+        int k = 0;
+        for (int i = 0; i < Fields.Length; i++)
+        {
+            if (Fields[i].GetComponent<IField>().FieldType == FieldTypeEnum.BaseField)
+            {
+                BaseFields[k] = Fields[i];
+                k++;
+            }
+        }
 
         // instanciate bools reflecting that no player has played yet and is not allowed
         // to move or roll the dice
-        isPlaying = -1;
+        isPlaying = 0;
         PlayerCurrentlyMoving = false;
         DiceAlreadyRolled = false;
-        AllowMovement = false;
+        AllowMovement = true;
         forward = false;
         left = false;
         right = false;
         DirectionSelected = false;
         RolledOnce = false;
         positionAlreadySet = false;
+        isShuffled = false;
+        isJunction = false;
+        ShufflePlayerArray();
+        PlaceTrophy();
+    }
+
+    void ShufflePlayerArray()
+    {
+        GameObject tempPlayer;
+        for (int i = 0; i < Players.Length; i++)
+        {
+            int rnd = Random.Range(0, Players.Length);
+            tempPlayer = Players[rnd];
+            Players[rnd] = Players[i];
+            Players[i] = tempPlayer;
+        }
+        isShuffled = true;
+    }
+
+    void PlaceTrophy()
+    {
+        int rnd = Random.Range(0, BaseFields.Length);
+        BaseFields[rnd].GetComponent<BaseField>().IsTrophyField = true;
+        Debug.Log("Trophy " + BaseFields[rnd].name);
     }
 }
