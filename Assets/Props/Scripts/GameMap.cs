@@ -28,6 +28,7 @@ public class GameMap : MonoBehaviour
     private float _movementTime = 1; //the time in seconds it takes for the figurine to move to each field
     public bool isShuffled = false;
     public bool isJunction = false;
+    public GameObject Trophy;
 
     void Start()
     {
@@ -373,6 +374,7 @@ public class GameMap : MonoBehaviour
         isShuffled = false;
         isJunction = false;
         ShufflePlayerArray();
+        Trophy = Instantiate(Trophy);
         PlaceTrophy();
     }
 
@@ -394,5 +396,7 @@ public class GameMap : MonoBehaviour
         int rnd = Random.Range(0, BaseFields.Length);
         BaseFields[rnd].GetComponent<BaseField>().IsTrophyField = true;
         Debug.Log("Trophy " + BaseFields[rnd].name);
+
+        Trophy.transform.position = BaseFields[rnd].transform.position;
     }
 }
