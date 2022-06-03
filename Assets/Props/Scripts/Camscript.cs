@@ -80,15 +80,15 @@ public class Camscript : MonoBehaviour
             DeactivateCameras();
             Cameras[0].SetActive(true);
         }
-        if(_gameMapRef.DiceAlreadyRolled == false)
+        else if(_gameMapRef.DiceAlreadyRolled == false)
         {
             Cameras[1].SetActive(true);
         }
-        if(_gameMapRef.DirectionSelected == false && _gameMapRef.isJunction)
+        else if(_gameMapRef.DirectionSelected == false && _gameMapRef.isJunction)
         {
             Cameras[2].SetActive(true);
         }
-        if(_gameMapRef.isShuffled == true)
+        else if(_gameMapRef.isShuffled == true)
         {
             Figures = _gameMapRef.Players;
             _gameMapRef.isShuffled = false;
