@@ -388,6 +388,11 @@ public class GameMap : MonoBehaviour
             Players[rnd] = Players[i];
             Players[i] = tempPlayer;
         }
+
+        for(int i = 0; i < Players.Length; i++)
+        {
+            Players[i].GetComponent<PlayerInfo>().PlayerNumber = (short)(i + 1);
+        }
         isShuffled = true;
     }
 
