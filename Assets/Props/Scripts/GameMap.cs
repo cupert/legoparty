@@ -29,6 +29,7 @@ public class GameMap : MonoBehaviour
     public bool isShuffled = false;
     public bool isJunction = false;
     public GameObject Trophy;
+    public GameObject itemPanel; // item menu UI panel, this is opened and closed when on item store field
 
     void Start()
     {
@@ -296,10 +297,15 @@ public class GameMap : MonoBehaviour
                     PlaceTrophy();
                 }
             }
+            // player passes/lands on item shop field
             if (Fields[Position].GetComponent<IField>().FieldType == FieldTypeEnum.ItemShopField)
             {
                 Fields[Position].GetComponent<ItemShopField>().InteractWithPlayer(Player.GetComponent<PlayerInfo>());
-                yield return new WaitUntil(() => Fields[Position].GetComponent<ItemShopField>().IsDoneShopping == true);
+                itemPanel.GetComponent<openItemPanel>().OpenAndClose();
+                // yield return new WaitUntil(() => Fields[Position].GetComponent<ItemShopField>().IsDoneShopping == true);
+
+                // TODO: close panel also on selection not only close button click
+                yield return new WaitUntil(() => itemPanel.GetComponent<openItemPanel>().active == false);
                 Fields[Position].GetComponent<ItemShopField>().IsDoneShopping = false;
             }
         }

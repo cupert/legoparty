@@ -11,7 +11,7 @@ public class ItemShopField : MonoBehaviour, IField
     {
         PlayerInShop = true;
         Debug.Log("shop not implemented yet");
-        Debug.Log("press w if you are done shopping");
+        // Debug.Log("press w if you are done shopping");
     }
 
     // Start is called before the first frame update
