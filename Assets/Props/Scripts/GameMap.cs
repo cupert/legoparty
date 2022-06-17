@@ -66,10 +66,6 @@ public class GameMap : MonoBehaviour
         // roll dice with 'r' to move the player the rolled number of fields
         if (Input.GetKeyDown("r") && !DiceAlreadyRolled)
         {
-            if (RolledOnce)
-            {
-                Dice.RollAgain();
-            }
             Dice.RollDice();
             RolledOnce = true;
             DiceAlreadyRolled = true;

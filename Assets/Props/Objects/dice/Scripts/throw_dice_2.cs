@@ -10,6 +10,7 @@ public class throw_dice_2 : MonoBehaviour
     bool isThrown;
 
     Vector3 initPosition;
+    Quaternion initRotation;
 
     public int diceValue;
     public bool finished;
@@ -19,13 +20,11 @@ public class throw_dice_2 : MonoBehaviour
     void Start(){
         rb= GetComponent<Rigidbody>();
         initPosition= transform.position;
+        initRotation= transform.rotation;
         rb.useGravity=false;
     }
 
     void Update(){
-        if(Input.GetKey("f")){
-            RollDice();
-        }
         if(rb.IsSleeping() && !isLanded && isThrown){
             isLanded=true;
             rb.useGravity=false;
@@ -38,17 +37,18 @@ public class throw_dice_2 : MonoBehaviour
     }
     public void RollDice(){
         finished = false;
-        if(!isThrown&&!isLanded){
+        if(isThrown&&isLanded){
+            Reset();
+        }
             isThrown=true;
             rb.useGravity=true;
             rb.AddTorque(Random.Range(0,500), Random.Range(0,500), Random.Range(0,500));
-        }
-        else if(isThrown&&isLanded){
-            Reset();
-        }
+        
     }
 
     public void Reset(){
+        Debug.Log(initPosition);
+        transform.rotation=initRotation;
         transform.position=initPosition;
         finished = false;
         isThrown=false;
