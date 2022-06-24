@@ -30,6 +30,7 @@ public class GameMap : MonoBehaviour
     public bool isJunction = false;
     public GameObject Trophy;
     public GameObject itemPanel; // item menu UI panel, this is opened and closed when on item store field
+    public LoadMinigame Minigame;
 
     void Start()
     {
@@ -315,7 +316,8 @@ public class GameMap : MonoBehaviour
 
         if (isPlaying == 3)
         {
-            //StartMiniGame()
+            Minigame.LoadGame();
+            yield return new WaitUntil(() => Minigame.minigameFinished == true);
             isPlaying = 0;
         }
         else
@@ -338,6 +340,7 @@ public class GameMap : MonoBehaviour
         Debug.Log("InsanciateGame");
         // instanciate dice
         Dice = GameObject.Find("dice_with_colliders 1").GetComponent<throw_dice_2>();
+        Minigame = new GameObject().AddComponent<LoadMinigame>();
         // instanciate players 1-4
         Players[0] = GameObject.Find("Yellow");
         Players[1] = GameObject.Find("Blue");
