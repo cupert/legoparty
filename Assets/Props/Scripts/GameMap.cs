@@ -30,7 +30,7 @@ public class GameMap : MonoBehaviour
     public bool isJunction = false;
     public GameObject Trophy;
     public GameObject itemPanel; // item menu UI panel, this is opened and closed when on item store field
-    public LoadMinigame Minigame;
+    public LoadScene SceneLoader;
 
     void Start()
     {
