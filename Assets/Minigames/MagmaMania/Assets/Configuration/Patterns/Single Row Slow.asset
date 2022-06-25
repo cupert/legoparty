@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82f92fcaf70ae8c49b4c7f128e6bea08, type: 3}
+  m_Name: Single Row Slow
+  m_EditorClassIdentifier: 
+  <Bullet>k__BackingField: {fileID: 11400000, guid: 4457ad93f892dd3479184f1c9f866f35, type: 2}
+  <Emission>k__BackingField: {fileID: 11400000, guid: 9607b0f69fe6b4845a0a63e60cca1b8a, type: 2}
+  <Repetitions>k__BackingField: 8
+  <RepeatDelay>k__BackingField: 0
+  <Reverse>k__BackingField: 0

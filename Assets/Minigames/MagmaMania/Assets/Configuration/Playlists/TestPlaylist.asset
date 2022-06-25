@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e5389e2d2713f44e8cb732693a59c7a, type: 3}
+  m_Name: TestPlaylist
+  m_EditorClassIdentifier: 
+  <Entries>k__BackingField:
+  - Action: 1
+    Delay: 1
+    Wave: {fileID: 11400000, guid: e00bfc3b479a7314580af0bcd8e35a03, type: 2}
+    Options: []
+    WaitForCompletion: 0
+  - Action: 0
+    Delay: 0.25
+    Wave: {fileID: 11400000, guid: aa2951e518e455c408fa37659fe5f907, type: 2}
+    Options:
+    - {fileID: 11400000, guid: e00bfc3b479a7314580af0bcd8e35a03, type: 2}
+    - {fileID: 11400000, guid: aa2951e518e455c408fa37659fe5f907, type: 2}
+    WaitForCompletion: 0
+  - Action: 1
+    Delay: 1
+    Wave: {fileID: 11400000, guid: aa2951e518e455c408fa37659fe5f907, type: 2}
+    Options: []
+    WaitForCompletion: 0
+  - Action: 2
+    Delay: 1
+    Wave: {fileID: 11400000, guid: aa2951e518e455c408fa37659fe5f907, type: 2}
+    Options:
+    - {fileID: 11400000, guid: e00bfc3b479a7314580af0bcd8e35a03, type: 2}
+    - {fileID: 11400000, guid: aa2951e518e455c408fa37659fe5f907, type: 2}
+    WaitForCompletion: 1
+  - Action: 2
+    Delay: 1
+    Wave: {fileID: 11400000, guid: aa2951e518e455c408fa37659fe5f907, type: 2}
+    Options:
+    - {fileID: 11400000, guid: e00bfc3b479a7314580af0bcd8e35a03, type: 2}
+    - {fileID: 11400000, guid: aa2951e518e455c408fa37659fe5f907, type: 2}
+    WaitForCompletion: 0
+  <LoopToIndex>k__BackingField: -2

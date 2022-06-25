@@ -316,8 +316,7 @@ public class GameMap : MonoBehaviour
 
         if (isPlaying == 3)
         {
-            Minigame.LoadGame();
-            yield return new WaitUntil(() => Minigame.minigameFinished == true);
+            SceneLoader.LoadRandomScene();
             isPlaying = 0;
         }
         else
@@ -340,7 +339,6 @@ public class GameMap : MonoBehaviour
         Debug.Log("InsanciateGame");
         // instanciate dice
         Dice = GameObject.Find("dice_with_colliders 1").GetComponent<throw_dice_2>();
-        Minigame = new GameObject().AddComponent<LoadMinigame>();
         // instanciate players 1-4
         Players[0] = GameObject.Find("Yellow");
         Players[1] = GameObject.Find("Blue");

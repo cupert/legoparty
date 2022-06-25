@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 3db1837cc97a95e4c98610966fac2b0b
+  - enabled: 1
+    path: Assets/Scenes/Map.unity
+    guid: 73589eacdd45c1846b489b3e6d174cf3
+  - enabled: 1
+    path: Assets/Minigames/MagmaMania/Assets/Scenes/Prototype.unity
+    guid: 1cbd4761b0c405c42aa6ddc77d071f48
   m_configObjects: {}

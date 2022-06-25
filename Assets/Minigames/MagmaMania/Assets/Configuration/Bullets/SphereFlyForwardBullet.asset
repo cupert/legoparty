@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72788ae2ce16f594e830a68120f9ff16, type: 3}
+  m_Name: SphereFlyForwardBullet
+  m_EditorClassIdentifier: 
+  <BulletPrefab>k__BackingField: {fileID: 1090574651454314794, guid: dd9a65baf07bc4f44abb23f3502d6ad3, type: 3}
+  BulletElements:
+  - {fileID: 11400000, guid: f71a869970f70bc44922012d96a736ef, type: 2}
+  - {fileID: 11400000, guid: 3ac1428ee5e4c1d44b10855e1d57aa77, type: 2}
+  - {fileID: 11400000, guid: f005e3eed9dcbb04ca48bc604642f77b, type: 2}
