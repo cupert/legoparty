@@ -12,7 +12,8 @@ public class GameMap : MonoBehaviour
 {
     public GameObject[] Fields = new GameObject[Config.numberofFields];
     public GameObject[] BaseFields = new GameObject[Config.numberofBaseFields];
-    public GameObject[] Players = new GameObject[4]; 
+    //public GameObject[] Players = new GameObject[4]; 
+    public List<GameObject> PlayersList; 
     public int Position; // current & new player position
     public int isPlaying = -1; // indicates which player is currently playing, -1 for none
     public bool PlayerCurrentlyMoving = false;
@@ -28,6 +29,12 @@ public class GameMap : MonoBehaviour
     private float _movementTime = 1; //the time in seconds it takes for the figurine to move to each field
     public bool isShuffled = false;
     public bool isJunction = false;
+    public bool characterSelectionIsActive = false;
+    public bool addingCharacter = false;
+    public bool yellowAlreadyChosen = false;
+    public bool whiteAlreadyChosen = false;
+    public bool blueAlreadyChosen = false;
+    public bool redAlreadyChosen = false;
     public GameObject Trophy;
     public GameObject itemPanel; // item menu UI panel, this is opened and closed when on item store field
     public LoadScene SceneLoader;
@@ -39,27 +46,124 @@ public class GameMap : MonoBehaviour
     }
 
     void Update()
-    {  
+    {
+        //character Selection
+        if (characterSelectionIsActive)
+        {
+            //add a player; up to 4 players possible
+            if (Input.GetKeyDown("z") && !addingCharacter && PlayersList.Count < 4)
+            {
+                Debug.Log("Choose your color by pressing \"u\" (yellow), \"i\" (red), \"o\" (white) or \"p\" (blue).");
+                addingCharacter = true;
+            }
+            //choosing yellow
+            else if (Input.GetKeyDown("u") && addingCharacter)
+            {
+                if (yellowAlreadyChosen)
+                {
+                    Debug.Log("Another Player already is yellow, please choose a different color.");
+                }
+                else
+                {
+                    PlayersList.Add(GameObject.Find("Yellow"));
+                    Debug.Log($"Player {PlayersList.Count} chose yellow");
+                    Debug.Log("Press \"z\" to add a another character or press \"x\" to start the game.");
+                    yellowAlreadyChosen = true;
+                    addingCharacter = false;
+                }   
+            }
+            //choosing red
+            else if(Input.GetKeyDown("i") && addingCharacter)
+            {
+                if (redAlreadyChosen)
+                {
+                    Debug.Log("Another Player already is red, please choose a different color.");
+                }
+                else
+                {
+                    PlayersList.Add(GameObject.Find("Red"));
+                    Debug.Log($"Player {PlayersList.Count} chose red");
+                    Debug.Log("Press \"z\" to add a another character or press \"x\" to start the game.");
+                    redAlreadyChosen = true;
+                    addingCharacter = false;
+                }
+            }
+            //choosing white
+            else if (Input.GetKeyDown("o") && addingCharacter)
+            {
+                if (whiteAlreadyChosen)
+                {
+                    Debug.Log("Another Player already is white, please choose a different color.");
+                }
+                else
+                {
+                    PlayersList.Add(GameObject.Find("White"));
+                    Debug.Log($"Player {PlayersList.Count} chose white");
+                    Debug.Log("Press \"z\" to add a another character or press \"x\" to start the game.");
+                    whiteAlreadyChosen = true;
+                    addingCharacter = false;
+                }
+            }
+            //choosing blue
+            else if (Input.GetKeyDown("p") && addingCharacter)
+            {
+                if (blueAlreadyChosen)
+                {
+                    Debug.Log("Another Player already is blue, please choose a different color.");
+                }
+                else
+                {
+                    PlayersList.Add(GameObject.Find("Blue"));
+                    Debug.Log($"Player {PlayersList.Count} chose blue");
+                    Debug.Log("Press \"z\" to add a another character or press \"x\" to start the game.");
+                    blueAlreadyChosen = true;
+                    addingCharacter = false;
+                }
+            }
+            //end character selection early
+            else if (Input.GetKeyDown("x"))
+            {
+                Debug.Log("Character selection has ended.");
+                characterSelectionIsActive = false;
+                ShufflePlayerArray();
+            }
+            //end character selection when maximum number of players has been reached
+            else if (PlayersList.Count >= 4)
+            {
+                Debug.Log("Character selection has ended.");
+                characterSelectionIsActive = false;
+                ShufflePlayerArray();
+            }
+        }
+
         if (AllowMovement && isPlaying != -1)
         {
             if (isPlaying == 0 && DiceAlreadyRolled)
             {
-                StartCoroutine(movePlayer(Players[0]));
+                //StartCoroutine(movePlayer(Players[0]));
+                //AllowMovement = false;
+                StartCoroutine(movePlayer(PlayersList[0]));
                 AllowMovement = false;
             }
             else if (isPlaying == 1 && DiceAlreadyRolled)
             {
-                StartCoroutine(movePlayer(Players[1]));
+                //StartCoroutine(movePlayer(Players[1]));
+                //AllowMovement = false;
+                StartCoroutine(movePlayer(PlayersList[1]));
                 AllowMovement = false;
             }
             else if (isPlaying == 2 && DiceAlreadyRolled)
             {
-                StartCoroutine(movePlayer(Players[2]));
+                //StartCoroutine(movePlayer(Players[2]));
+                //AllowMovement = false;
+                StartCoroutine(movePlayer(PlayersList[2]));
                 AllowMovement = false;
             }
             else if (isPlaying == 3 && DiceAlreadyRolled)
             {
-                StartCoroutine(movePlayer(Players[3]));
+                //StartCoroutine(movePlayer(Players[3]));
+                //AllowMovement = false;
+                StartCoroutine(movePlayer(PlayersList[3]));
                 AllowMovement = false;
             } 
         }
@@ -314,7 +418,12 @@ public class GameMap : MonoBehaviour
             Debug.Log(Player + " trophies " + Player.GetComponent<PlayerInfo>().trophies);
         }
 
-        if (isPlaying == 3)
+        //if (isPlaying == 3)
+        //{
+        //    SceneLoader.LoadRandomScene();
+        //    isPlaying = 0;
+        //}
+        if (isPlaying == (PlayersList.Count - 1))
         {
             SceneLoader.LoadRandomScene();
             isPlaying = 0;
@@ -340,10 +449,11 @@ public class GameMap : MonoBehaviour
         // instanciate dice
         Dice = GameObject.Find("dice_with_colliders 1").GetComponent<throw_dice_2>();
         // instanciate players 1-4
-        Players[0] = GameObject.Find("Yellow");
-        Players[1] = GameObject.Find("Blue");
-        Players[2] = GameObject.Find("Red");
-        Players[3] = GameObject.Find("White");
+        //Players[0] = GameObject.Find("Yellow");
+        //Players[1] = GameObject.Find("Blue");
+        //Players[2] = GameObject.Find("Red");
+        //Players[3] = GameObject.Find("White");
+        SelectPlayersCharacters();
 
         // instanciate map fields
         for (int i = 0; i < Config.numberofFields; i++)
@@ -376,25 +486,42 @@ public class GameMap : MonoBehaviour
         positionAlreadySet = false;
         isShuffled = false;
         isJunction = false;
-        ShufflePlayerArray();
+        //ShufflePlayerArray();
         Trophy = Instantiate(Trophy);
         PlaceTrophy();
     }
 
     void ShufflePlayerArray()
     {
+        Debug.Log("Determinating turn sequence.");
         GameObject tempPlayer;
-        for (int i = 0; i < Players.Length; i++)
+        //for (int i = 0; i < Players.Length; i++)
+        //{
+        //    int rnd = Random.Range(0, Players.Length);
+        //    tempPlayer = Players[rnd];
+        //    Players[rnd] = Players[i];
+        //    Players[i] = tempPlayer;
+        //}
+        for (int i = 0; i < PlayersList.Count; i++)
         {
-            int rnd = Random.Range(0, Players.Length);
-            tempPlayer = Players[rnd];
-            Players[rnd] = Players[i];
-            Players[i] = tempPlayer;
+            int rnd = Random.Range(0, PlayersList.Count);
+            tempPlayer = PlayersList[rnd];
+            PlayersList[rnd] = PlayersList[i];
+            PlayersList[i] = tempPlayer;
         }
 
-        for(int i = 0; i < Players.Length; i++)
+        //for(int i = 0; i < Players.Length; i++)
+        //{
+        //    Players[i].GetComponent<PlayerInfo>().PlayerNumber = (short)(i + 1);
+        //}
+        for (int i = 0; i < PlayersList.Count; i++)
         {
-            Players[i].GetComponent<PlayerInfo>().PlayerNumber = (short)(i + 1);
+            PlayersList[i].GetComponent<PlayerInfo>().PlayerNumber = (short)(i + 1);
+        }
+        Debug.Log($"Turn sequence:");
+        for (int i = 0; i < PlayersList.Count; i++)
+        {
+            Debug.Log($"{i + 1}: {PlayersList[i]}");
         }
         isShuffled = true;
     }
@@ -406,5 +533,16 @@ public class GameMap : MonoBehaviour
         Debug.Log("Trophy " + BaseFields[rnd].name);
 
         Trophy.transform.position = BaseFields[rnd].transform.position;
+    }
+
+    void SelectPlayersCharacters()
+    {
+        Debug.Log("CharacterSelection");
+        //PlayersList.Add(GameObject.Find("Yellow"));
+        //PlayersList.Add(GameObject.Find("Blue"));
+        //PlayersList.Add(GameObject.Find("Red"));
+        //PlayersList.Add(GameObject.Find("White"));
+        Debug.Log("Press \"z\" to add a character. (up to 4)");
+        characterSelectionIsActive = true;
     }
 }

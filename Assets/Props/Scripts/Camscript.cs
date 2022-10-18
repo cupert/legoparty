@@ -6,7 +6,8 @@ using UnityEngine;
 public class Camscript : MonoBehaviour
 {
     public GameObject[] Cameras;
-    public GameObject[] Figures;
+    //public GameObject[] Figures;
+    public List<GameObject> Figures;
     public bool Nextcam;
 
     [SerializeField]
@@ -64,7 +65,11 @@ public class Camscript : MonoBehaviour
         // camera transformation when Player Camera is selected
         if (Cameras[0].activeSelf == true) {
             // camera follows current active player
-            if ((_gameMapRef.isPlaying >= 0) && (_gameMapRef.isPlaying < Figures.Length)) {
+            //if ((_gameMapRef.isPlaying >= 0) && (_gameMapRef.isPlaying < Figures.Length)) {
+            //    Cameras[0].transform.position = Figures[_gameMapRef.isPlaying].transform.position + CamOffset;
+            //    Cameras[0].transform.eulerAngles = CamRotate;
+            //}
+            if ((_gameMapRef.isPlaying >= 0) && (_gameMapRef.isPlaying < Figures.Count)) {
                 Cameras[0].transform.position = Figures[_gameMapRef.isPlaying].transform.position + CamOffset;
                 Cameras[0].transform.eulerAngles = CamRotate;
             }
@@ -90,7 +95,8 @@ public class Camscript : MonoBehaviour
         }
         else if(_gameMapRef.isShuffled == true)
         {
-            Figures = _gameMapRef.Players;
+            //Figures = _gameMapRef.Players;
+            Figures = _gameMapRef.PlayersList;
             _gameMapRef.isShuffled = false;
         }
     }
