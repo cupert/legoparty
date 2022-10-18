@@ -34,7 +34,7 @@ public class GameMap : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("loaded");
+        Debug.Log("game loaded");
         InstanciateGame();
     }
 
